@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #EEF9BF;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+h1{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+    color: #75B79E;
+    width: 600px;
+    height: 63px;
+    text-align: center;
+}
+
+/*.comecar{
+    width: 100px;
+    height: 50px;
+    border: 1px solid #75B79E;
+    border-radius: 50px;
+    background-color: #EEF9BF;
+    color: #75B79E;
+}*/
+
+.pagina{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 5% 8% 5% 8%;
+    gap: 50px;
+}
+
+.cartas{
+    width: 65%;
+}
+
+.cartas__fileiras{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.carta__background{
+    background-image: url(./imgs/Rectangle-2.png);
+    width: 117px;
+    height: 146px;
+}
+
+.carta{
+    padding-left: 8.5px;
+    padding-top: 23px;
+}
+
+@media (max-width: 335px){
+    body{
+        height: 100%;
+    }
+    h1{
+        font-size: 36px;
+        width: 312px;
+    }
+    .cartas{
+        padding-left: 25%;
+    }
+    .cartas__fileiras{
+        flex-direction: column;
+        gap: 30px;
+    }
+}
