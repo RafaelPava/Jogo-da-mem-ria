@@ -2,9 +2,9 @@ start();
 
 function quantasCartas(){
     let condicao = true;
-    while(condicao==true){
+    while(condicao === true){
         let numCartas = prompt('Quantas cartas deseja jogar?\nmín de 4 e máx de 14');
-        if(numCartas>=4 && numCartas<=14){
+        if(numCartas >= 4 && numCartas <= 14){
             if(numCartas % 2 != 0){
                 alert('Número inválido!\nDigite um número par!');
                 continue;
@@ -50,7 +50,6 @@ function embaralhandoCartas(numCartas,arr){
 function comecarJogo(arr){
     console.log(arr);
     let cartas = document.querySelector('.game');
-    console.log(cartas);
     for(let i=0;i<arr.length;i++){
         cartas.innerHTML += arr[i];
     }
@@ -61,32 +60,48 @@ function comparador(){
 }
 
 let cartasClicadas = [];
+let cartasAcertadas = [];
 
 function tentativas(carta){
-    if(document.querySelectorAll('.cartas__rotate__front').length % 2 == 0){
-        carta.children[1].classList.add('cartas__rotate__front');
-        carta.children[0].classList.add('cartas__rotate__back');
-        carta.classList.add('carta__clicada');
-        cartasClicadas.push(carta.children[1].children[0].src);
-        carta.disabled=true;
+    if(carta.classList.contains('carta__acertada')){
+        return;
     }else{
-        carta.children[1].classList.add('cartas__rotate__front');
-        carta.children[0].classList.add('cartas__rotate__back');
-        cartasClicadas.push(carta.children[1].children[0].src);
-        if(cartasClicadas[0]===cartasClicadas[1]){
-            cartasClicadas = [];
-            document.querySelector('.carta__clicada').disabled=true;
-            carta.disabled=true;
+        if(document.querySelectorAll('.cartas__rotate__front').length % 2 == 0){
+            carta.children[1].classList.add('cartas__rotate__front');
+            carta.children[0].classList.add('cartas__rotate__back');
+            carta.classList.add('carta__clicada');
+            cartasClicadas.push(carta.children[1].children[0].src);
+            carta.disabled = true;
         }else{
-            setTimeout(() => {
-                carta.children[1].classList.remove('cartas__rotate__front');
-                carta.children[0].classList.remove('cartas__rotate__back');
-                document.querySelector('.carta__clicada').children[0].classList.remove('cartas__rotate__back');
-                document.querySelector('.carta__clicada').children[1].classList.remove('cartas__rotate__front');
-                document.querySelector('.carta__clicada').classList.remove('carta__clicada');
-                cartasClicadas=[];
-            },1000);
-            
+            carta.children[1].classList.add('cartas__rotate__front');
+            carta.children[0].classList.add('cartas__rotate__back');
+            carta.classList.add('carta__clicada');
+            cartasClicadas.push(carta.children[1].children[0].src);
+            if(cartasClicadas[0] === cartasClicadas[1]){
+                cartasClicadas = [];
+                document.querySelectorAll('.carta__clicada').disabled = true;
+                carta.disabled=true;
+                document.querySelectorAll('.carta_clicada').classList.add('carta__acertada');
+                cartasAcertadas.push(carta);
+            }else{
+                setTimeout(() => {
+                    carta.children[1].classList.remove('cartas__rotate__front');
+                    carta.children[0].classList.remove('cartas__rotate__back');
+                    document.querySelector('.carta__clicada').children[0].classList.remove('cartas__rotate__back');
+                    document.querySelector('.carta__clicada').children[1].classList.remove('cartas__rotate__front');
+                    document.querySelector('.carta__clicada').classList.remove('carta__clicada');
+                    cartasClicadas = [];
+                },1000);
+            }
         }
+        document.querySelectorAll('.carta__clicada').disabled=true;
     }
+    if(cartasAcertadas.length === (quantasCartas()/2)) fimDeJogo();
+}
+
+function fimDeJogo(){
+        let decisao = prompt(`Deseja jogar de novo?\n s ou n?`);
+        if(decisao === 's'){
+            comecarJogo();
+        }
 }
